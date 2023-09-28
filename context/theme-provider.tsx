@@ -7,38 +7,43 @@ interface ThemeContextType {
   setMode: (mode: string) => void
 }
 
-const themeContext = createContext<ThemeContextType | undefined>(undefined)
+const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [mode, setMode] = useState('')
 
+  console.log("Mode ", mode)
+
   const handleThemeChange = () => {
-    if (mode === 'light') {
-      setMode('light')
-      document.documentElement.classList.add('light')
-    } else {
+    if (
+      localStorage.theme === 'dark' ||
+      (!('theme' in localStorage) &&
+        window.matchMedia('(prefers-color-scheme: dark)').matches)
+    ) {
       setMode('dark')
       document.documentElement.classList.add('dark')
+    } else {
+      setMode('light')
+      document.documentElement.classList.remove('dark')
     }
   }
 
   useEffect(() => {
     handleThemeChange()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mode])
 
   return (
-    <themeContext.Provider value={{ mode, setMode }}>
+    <ThemeContext.Provider value={{ mode, setMode }}>
       {children}
-    </themeContext.Provider>
+    </ThemeContext.Provider>
   )
 }
 
 export function useTheme() {
-  const context = useContext(themeContext)
+  const context = useContext(ThemeContext)
 
   if (context === undefined) {
-    throw new Error('useTheme must be used with a ThemeProvider')
+    throw new Error('useTheme must be used within a ThemeProvider')
   }
 
   return context
