@@ -1,7 +1,7 @@
-'use client'
+'use client';
 
-import { useTheme } from '@/context/theme-provider'
-import Image from 'next/image'
+import { useTheme } from '@/context/ThemeProvider';
+import Image from 'next/image';
 
 import {
   Menubar,
@@ -9,11 +9,11 @@ import {
   MenubarItem,
   MenubarMenu,
   MenubarTrigger,
-} from '@/components/ui/menubar'
-import { themes } from '@/constants'
+} from '@/components/ui/menubar';
+import { themes } from '@/constants';
 
 const Theme = () => {
-  const { mode, setMode } = useTheme()
+  const { mode, setMode } = useTheme();
 
   return (
     <Menubar className="relative border-none bg-transparent shadow-none">
@@ -37,18 +37,18 @@ const Theme = () => {
             />
           )}
         </MenubarTrigger>
-        <MenubarContent className="absolute right-[-3rem] mt-3 min-w-[120px] rounded border py-2 dark:border-dark-400 dark:bg-dark-300">
+        <MenubarContent className="absolute right-[-3rem] mt-3 min-w-[120px] rounded border bg-white py-2 dark:border-dark-400 dark:bg-dark-300">
           {themes.map((item) => (
             <MenubarItem
               key={item.value}
-              className="flex items-center gap-4 px-2.5 py-2 dark:focus:bg-dark-400"
+              className="flex items-center gap-4 px-2.5 py-2 focus:bg-light-800 dark:focus:bg-dark-400"
               onClick={() => {
-                setMode(item.value)
+                setMode(item.value);
 
                 if (item.value !== 'system') {
-                  localStorage.theme = item.value
+                  localStorage.theme = item.value;
                 } else {
-                  localStorage.removeItem('theme')
+                  localStorage.removeItem('theme');
                 }
               }}
             >
@@ -73,7 +73,7 @@ const Theme = () => {
         </MenubarContent>
       </MenubarMenu>
     </Menubar>
-  )
-}
+  );
+};
 
-export default Theme
+export default Theme;
