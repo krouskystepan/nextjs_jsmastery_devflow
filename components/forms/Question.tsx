@@ -232,9 +232,13 @@ const Question = ({ mongoUserId }: Props) => {
           disabled={isSubmitting}
         >
           {isSubmitting ? (
-            <>{type === 'edit' ? 'Editing...' : 'Posting...'}</>
+            <>
+            {type === 'edit' ? 'Editing...' : 'Posting...'}
+            </>
           ) : (
-            <>{type === 'edit' ? 'Edit a Question' : 'Ask a Question'}</>
+            <>
+            {type === 'edit' ? 'Edit a Question' : 'Ask a Question'}
+            </>
           )}
         </Button>
       </form>
